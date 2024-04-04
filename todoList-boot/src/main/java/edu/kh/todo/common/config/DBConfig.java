@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -44,7 +45,7 @@ import com.zaxxer.hikari.HikariDataSource;
  * */
 
 
-@ConfigurationProperties()
+@Configuration
 @PropertySource("classpath:/config.properties")
 public class DBConfig {
 
@@ -70,7 +71,7 @@ public class DBConfig {
 	}
 	/////////////////   Mybatis 설정    /////////////////////
 	
-	
+	@Bean
 	public SqlSessionFactory sessionFactory(DataSource datasource) throws Exception{
 		
 		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
