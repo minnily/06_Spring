@@ -105,4 +105,9 @@
   	 	DELETE FROM TB_TODO
   	 	WHERE TODO_NO = #{todoNo}
   </delete>
+  
+  <!-- 전체 할일 개수 조회 -->
+  <select id="getTotalCount" resultType="_int">
+  	SELECT COUNT(*) FROM TB_TODO
+  </select>
 </mapper>

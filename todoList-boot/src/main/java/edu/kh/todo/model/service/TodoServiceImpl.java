@@ -92,11 +92,31 @@ public class TodoServiceImpl implements TodoService{
 	}
 	
 	//할 일 삭제
-		@Override
-		public int todoDelete(int todoNo) {
-			
-			return  mapper.todoDelete(todoNo);
-		}
+	@Override
+	public int todoDelete(int todoNo) {
+		
+		return  mapper.todoDelete(todoNo);
+	}
+
+	//전체 할일 조회
+	@Override
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCount();
+	}
+
+	// 완료된 할 일 개수 조회
+	@Override
+	public int getCompleteConunt() {
+		return mapper.getCompleteCount();
+	}
+
+	//할 일 목록 조회
+	@Override
+	public List<Todo> selectList() {
+		// 할일 목록을 조회하는 sql이 selectAll sql이었기에 따로 작성하지 않고 이전에 만들었던 것을 호출하면 된다.
+		return mapper.selectAll();
+	}
 	
 	
 }
