@@ -18,4 +18,14 @@ public interface MemberService {
 	 */
 	int checkEmail(String memberEmail);
 
+	int checkNickname(String memberNickkname);
+
+	
+	/** 회원 가입 서비스
+	 * @param inputMember
+	 * @param memberAddress
+	 * @return result
+	 */
+	int signup(Member inputMember, String[] memberAddress);
+
 }

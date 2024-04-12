@@ -107,3 +107,10 @@ SELECT * FROM "TB_AUTH_KEY";
 
 
 
+
+	INSERT INTO "TB_AUTH_KEY"
+	VALUES(SEQ_KEY_NO.NEXTVAL,'user01@kh.or.kr',,DEFAULT)
+	</insert>
+
+
+
