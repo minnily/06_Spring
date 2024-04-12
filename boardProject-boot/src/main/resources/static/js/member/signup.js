@@ -200,7 +200,7 @@ sendAuthKeyBtn.addEventListener("click", () => {
 
         // 0분 0초인 경우 ( "00:00" 출력 후 )
         if(min == 0 && sec == 0){
-            checkObj.authKey = false; // 인증 못함
+            checkObj.authKey = false; // 인증 못함,
             clearInterval(authTimer); // interval 멈춤
             authKeyMessage.classList.add('error');
             authKeyMessage.classList.remove('confirm');
