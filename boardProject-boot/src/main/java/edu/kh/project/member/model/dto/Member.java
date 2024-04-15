@@ -30,5 +30,5 @@ public class Member {
 	private String enrollDate;
 	private String memberDelFl;
 	private int authority;
-	
+
 }

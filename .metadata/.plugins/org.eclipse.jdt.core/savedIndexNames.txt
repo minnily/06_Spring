@@ -65,7 +65,6 @@ INDEX VERSION 1.134+C:\workspace\06_Spring\.metadata\.plugins\org.eclipse.jdt.co
 49262147.index
 1770425339.index
 3390176732.index
-1589257860.index
 775154451.index
 4281803597.index
 329640212.index

@@ -31,7 +31,7 @@ AND MEMBER_EMAIL =#{memberEmail}
 SELECT COUNT(*)
 FROM "MEMBER"
 WHERE MEMBER_DEL_FL ='N'
-AND MEMBER_NICKNAME =#{memberNickkname}
+AND MEMBER_NICKNAME =#{memberNickname}
 </select>
 
 <!-- 회원가입 -->
@@ -39,9 +39,9 @@ AND MEMBER_NICKNAME =#{memberNickkname}
 INSERT INTO "MEMBER"
 VALUES(SEQ_MEMBER_NO.NEXTVAL, 
 			 #{memberEmail},
-			#{memberPw},
-			#{memberNickname},
-			#{memberTel},
+			 #{memberPw},
+			 #{memberNickname},
+			 #{memberTel},
 			 #{memberAddress},
 			 NULL,
 			 DEFAULT,
