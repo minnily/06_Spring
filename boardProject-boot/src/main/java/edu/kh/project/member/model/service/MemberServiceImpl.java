@@ -1,5 +1,9 @@
 package edu.kh.project.member.model.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -114,6 +118,47 @@ public class MemberServiceImpl implements MemberService{
 					
 			//회원 가입 매퍼 메서드 호출
 			return mapper.signup(inputMember);
+		}
+
+		//빠른 로그인 
+		//-> 일반 로그인에서 비밀번호 비교만 제외
+		@Override
+		public Member quickLogin(String memberEmail) {
+			
+			Member loginMember = mapper.login(memberEmail);
+			
+			// 만약 탈퇴했거나 없는 회원이면
+			if(loginMember == null) return null;
+			
+			// 조회된 회원인데 
+			// 조회된 비밀번호 null로 변경
+			loginMember.setMemberPw(null);
+			return loginMember;
+					
+		}
+
+		//회원 목록 조회
+		@Override
+		public List<Member> selectMemberList() {
+			
+			
+			return mapper.selectMemberList();
+		}
+
+		// 비밀번호 초기화
+		@Override
+		public int resetPw(int inputNo) {
+			
+			// 비밀번호에 관련된 것을 MAPPER에서 처리해줘야한다.
+			
+			// pass01! ->을 암호화 할 것임. bcrypt 이용해서 암호화해야함.
+			String encPw = bcrypt.encode("pass01!");
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("inputNo",inputNo);
+			map.put("encPw",encPw);
+			
+			return mapper.resetPw(map);
 		}
 	
 	

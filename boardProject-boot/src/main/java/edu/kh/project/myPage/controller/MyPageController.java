@@ -1,5 +1,6 @@
 package edu.kh.project.myPage.controller;
 
+import java.io.File;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.dto.Member;
@@ -171,7 +173,7 @@ public class MyPageController {
 			message = "현재 비밀번호가 일치하지 않습니다";
 		}
 		
-		ra.addFlashAttribute(message);
+		ra.addFlashAttribute("message",message);
 		return "redirect:" + path;
 	}
 	
@@ -212,4 +214,47 @@ public class MyPageController {
 		
 	}
 	
+	/* 파일 업로드 테스트*/
+	@GetMapping("fileTest")
+	public String fileTest() {
+		
+		return "myPage/myPage-fileTest";
+	}
+	
+	
+	/*
+	 * Spring 에서 파일 업로드를 처리하는 방법
+	 * - enctype = "multipart/form-data"로 클라이언트 요청을 받으면
+	 * 	(문자, 숫자, 파일 등이 섞여있는 요청)
+	 * 
+	 * 이를 MultipartResolver(FileConfig에 정의)를 이용해서 섞여있는 파라미터를 분리
+	 * 
+	 * 문자열, 숫자 -> String
+	 * 파일 		-> MultipartFile
+	 
+	 * */
+	
+	/**
+	 * @param uploadFile ▷ 여기에 업로드한 파일에 대한 정보만 있는 것이 아니라 파일에 대한 내용 및 설정내용도 함께 들어가있다!
+	 * 
+	 * @return
+	 */
+	@PostMapping("file/test1") 
+	public String fileUpload1(
+			/*@RequestParam("memberName") String memberName,*/
+			@RequestParam("uploadFile") MultipartFile uploadFile,
+			/* + MultipartResolver 어떻게 동작을 할지에 대한 설정도 함께 넣어야 함 이내용은 FileConfig에 정의 할 것임*/
+			RedirectAttributes ra
+			) throws Exception{
+		
+		String path = service.fileUpload1(uploadFile); 
+		
+		// 파일이 저장되어 웹에서 접근할 수 있는 경로가 반환 되었을 때
+		if(path !=null) {
+			ra.addFlashAttribute("path",path);
+		}
+		
+		return "redirect:/myPage/fileTest";
+		
+	}
 }

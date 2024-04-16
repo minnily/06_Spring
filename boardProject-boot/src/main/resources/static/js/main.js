@@ -79,4 +79,119 @@ if(loginForm != null) {
     });
 }
 
+//----------------------------------------------------------------
 
+/* 빠른 로그인 */
+
+const quickLoginBtns = document.querySelectorAll(".quick-login");
+
+quickLoginBtns.forEach((item, index) => {
+    // item : 현재 반복 시 꺼내온 객체
+    // index : 현재 반복 중인 인덱스
+
+    // quickLoginBtns 요소인 button 태그 하나씩 꺼내서 이벤트 리스너 추가
+    item.addEventListener("click", () => {
+
+        const email = item.innerText; //버튼에 작성된 이메일 얻어오기
+        location.href = "/member/quickLogin?memberEmail=" + email;
+    });
+});
+
+//-------------------------------------------------------------------
+
+/* 회원 목록 조회(비동기) */
+
+//조회 버튼
+const selectMemberList = document.querySelector("#selectMemberList");
+
+//tbody 
+const memberList = document.querySelector("#memberList");
+
+// td 요소를 만들고 text 추가 후 반환
+const createTd = (text) => {
+    const td = document.createElement("td");
+    td.innerText = text;
+    return td;
+}
+// 조회 버튼 클릭시 
+selectMemberList.addEventListener("click", () => {
+
+    // 1) 비동기로 회원 목록 조회
+    // ( 포함할 회원 정보 : 회원번호, 이메일, 닉네임, 탈퇴여부)
+    fetch("/member/selectMemberList")
+    .then(resp => resp.json()) //JSON.parse(resp)
+    .then(result => {
+
+    /* (==) .then(resp => resp.text()
+        .then(result => {  
+        const data = JSON.parse(result)*/
+
+        // 이전 내용 삭제
+        memberList.innerHTML ="";
+
+        // tbody에 들어갈 요소를 만들고 값 세팅 후 추가해주기
+        result.forEach((member, index) => {
+           
+            //member : 현재 반복 접근 중인 요소
+            // index : 현재 접근 중인 인덱스
+
+            //tr 만들어서 그 안에 td 만들고, append 후 
+            // tr을 tbody에 append 해주기
+            const keyList = ['memberNo', 'memberEmail','memberNickname','memberDelFl'];
+
+            const tr = document.createElement("tr");
+            
+            /* 
+               같은 방법이지만 코드가 길어지는 방법이라 주석처리 안한 부분으로 하면 
+               간단히 할 수 있음
+            const td = document.createElement("td");
+            td.innerTect = member['memberNo'];
+            tr.append(td);
+
+            ...
+
+            */
+
+            // <tr></tr>
+            keyList.forEach(key => tr.append(createTd(member[key])));
+
+            // tbodt 자식으로 tr 추가
+            memberList.append(tr);
+            
+        });
+    });   
+});
+
+//------------------------------------------------
+
+const resetMemberNo = document.querySelector("#resetMemberNo");
+const rresetPw = document.querySelector("#resetPw");
+
+resetPw.addEventListener("click", () => {
+
+    //입력 받은 회원 번호 얻어오기
+    const inputNo = resetMemberNo.value;
+
+    if(inputNo.trim().length == 0){
+        alert("회원 번호 입력해주세요");
+        return;
+    }
+
+    fetch("/member/resetPw", {
+        method : "PUT", // PUT : 수정 요청 방식
+        headers : {"Content-Type" : "application/json"},
+        body : inputNo
+    })
+    .then(resp => resp.text())
+    .then(result => {
+        if(result >0) {
+            alert("초기화 성공")
+        }else{
+            alert("해당 회원이 존재하지 않습니다.")
+        }
+    })
+});
+
+//--------------------------------------------------
+
+// 특정 회원(회원번호) 탈퇴 복구 (알아서 해보기>..!!!)
