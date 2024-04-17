@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace=" edu.kh.todo.model.mapper.TodoMapper2">
+<mapper namespace="edu.kh.todo.model.mapper.TodoMapper2">
  
- <insert id="add">
+ <insert id="add2" parameterType="Todo2">
  	INSERT INTO TB_TODO2
- 	VALUES(SEQ_TODO_NO.NEXTVAL, #{todoTitle}, #{todoContent}, DEFAULT, DEFAULT )
+	VALUES(SEQ_TODO_NO.NEXTVAL, #{todoTitle}, #{todoContent}, DEFAULT, DEFAULT )
  </insert>
+ 
+ <select id="selectTodoList" resultType="edu.kh.todo.model.dto.Todo2">
+ 	SELECT TODO_NO, TODO_TITLE,TODO_CONTENT, COMPLETE,TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI:SS') REG_DATE
+	FROM TB_TODO2
+	ORDER BY TODO_NO
+ </select>
   
 </mapper>

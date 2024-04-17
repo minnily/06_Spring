@@ -14,12 +14,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TodoServiceImpl2 implements TodoService2{
 
-	private final TodoMapper2 mapper2;
+	private final TodoMapper2 mapper;
 
+	// 할일 추가하기 
 	@Override
-	public List<Todo2> add(String todoTitle, String todoContent) {
+	public int add2(Todo2 todo2) {
 		
-		return mapper2.add(todoTitle, todoContent);
+		return mapper.add2(todo2);
+	}
+
+	// 할일 목록 tbody에 조회하기
+	@Override
+	public List<Todo2> selectTodoList() {
+		
+		
+		return mapper.selectTodoList();
+		
 	}
 	
 	

@@ -6,7 +6,9 @@ import edu.kh.todo.model.dto.Todo2;
 
 public interface TodoService2 {
 
-	List<Todo2> add(String todoTitle, String todoContent);
+	int add2(Todo2 todo2);
+
+	List<Todo2> selectTodoList();
 
 	
 }

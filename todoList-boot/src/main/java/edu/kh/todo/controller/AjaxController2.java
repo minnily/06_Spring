@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AjaxController2 {
 	
-	private final TodoService2 service2;
+	private final TodoService2 service;
 	
 	@GetMapping("main2")
 	public String ajaxMain() {
@@ -27,9 +27,17 @@ public class AjaxController2 {
 	}
 	
 	@ResponseBody
-	@PostMapping("add")
-	public List<Todo2> add(@RequestBody Todo2 todo2 ){
+	@PostMapping("add2")
+	public int add2(@RequestBody Todo2 todo2 ){
 		
-		return service2.add(todo2.getTodoTitle(), todo2.getTodoContent());
+		return service.add2(todo2);
+	}
+	
+	@ResponseBody
+	@GetMapping("selectTodoList")
+	public List<Todo2> selectTodoList(){
+		
+		return service.selectTodoList();
+		
 	}
 }
