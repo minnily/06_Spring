@@ -18,7 +18,6 @@ addBtn.addEventListener("click", ()=>{
         method : "POST",
         headers : {"Content-Type" : "application/json"},
         body : JSON.parse(param)
-
     })
 })
 
