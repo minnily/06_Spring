@@ -40,29 +40,31 @@ addBtn.addEventListener("click", () => {
 // 할일 목록에 있는 값 얻어오기
 const tbody = document.querySelector("#tbody");
 
+const createTd2 = (text) => {
+    const td = document.createElement("td");
+    td.innerText = text;
+    return td;
+}
+
 const selectTodoList = () => {
 
-    fetch("/ajax/selectTodoList")
-    .then(resp => resp.json())
-    .then(result => {
+        tbody.innerHTML ="";
 
-        for(let todo2 of todoList2){
-            const tr =document.createAttribute("tr");
-            const arr= ['todoNo', 'todoTitle','complete','regDate'];
+        result.forEach((todo,index) => {
 
-            for(let key of arr){
-                const td = document.createAttribute("td");
+        const arr= ['todoNo', 'todoTitle','complete','regDate'];
+
+        const tr =document.createAttribute("tr");
+
+        arr.forEach(key => tr.append(createTd2(todo[key])));
+
+        tbody.append(tr);
+
             
-                td.innerText = todo[key];
-                tr.append(td);
-            }
-            tbody.append(tr)
-        }
-    })
+        });
+ 
+    
 };
-
-selectTodoList();
-
 
 
 
