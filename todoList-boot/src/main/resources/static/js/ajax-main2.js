@@ -38,7 +38,21 @@ addBtn.addEventListener("click", () => {
 // 할일 목록 tbody에 띄우기 ( 할일 목록을 조회하기)
 
 // 할일 목록에 있는 값 얻어오기
+
 const tbody = document.querySelector("#tbody");
+
+fetch("/ajax/selectTodoList")
+.then(resp => resp.json())
+.then(result => {
+
+    forEach()
+})
+
+
+
+
+
+
 
 const createTd2 = (text) => {
     const td = document.createElement("td");
