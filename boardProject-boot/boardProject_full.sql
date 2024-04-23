@@ -296,6 +296,7 @@ INSERT INTO "BOARD_TYPE" VALUES(SEQ_BOARD_CODE.NEXTVAL, '자유 게시판');
 
 COMMIT;
 
+SELECT * FROM "BOARD";
 
 -------------------------------------------------------
 /* 게시글 번호 시퀀스 생성 */
@@ -431,27 +432,36 @@ CREATE SEQUENCE SEQ_IMG_NO NOCACHE;
 
 /* BOARD_IMG 테이블에 샘플 데이터 삽입 */
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본1.jpg', 'test1.jpg', 0, 1998
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본1.jpg', 'test1.jpg', 0, 1960
+);
+
+/* 5번째 는 이미지 순서를 말하며 0인경우 썸네일에 해당한다.  
+ * 6번째 게시글 번호 */
+
+INSERT INTO "BOARD_IMG" VALUES(
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본2.jpg', 'test2.jpg', 1, 1960
 );
 
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본2.jpg', 'test2.jpg', 1, 1998
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본3.jpg', 'test3.jpg', 2, 1960
 );
 
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본3.jpg', 'test3.jpg', 2, 1998
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본4.jpg', 'test4.jpg', 3, 1960
 );
 
 INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본4.jpg', 'test4.jpg', 3, 1998
-);
-
-INSERT INTO "BOARD_IMG" VALUES(
-	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본5.jpg', 'test5.jpg', 4, 1998
+	SEQ_IMG_NO.NEXTVAL, '/images/board/', '원본5.jpg', 'test5.jpg', 4, 1960
 );
 
 
 COMMIT;
+
+SELECT * FROM BOARD_IMG;
+
+DROP TABLE BOARD_IMG;
+
+DROP SEQUENCE SEQ_IMG_NO;
 
 -------------------------------------------------------
 
@@ -469,3 +479,111 @@ ORDER BY BOARD_CODE ;
 SELECT BOARD_CODE "boardCode", BOARD_NAME "boardName"
 	FROM BOARD_TYPE
 	ORDER BY BOARD_CODE;
+	
+
+------------------------------------------------------------
+------------------------------------------------------------
+
+-------------------------------------------------------
+/* 게시글 상세 조회 */
+SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_CODE, READ_COUNT,
+	MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG,
+	
+	TO_CHAR(BOARD_WRITE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') BOARD_WRITE_DATE, 
+	TO_CHAR(BOARD_UPDATE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') BOARD_UPDATE_DATE,
+	
+	(SELECT COUNT(*)
+	 FROM "BOARD_LIKE"
+	 WHERE BOARD_NO = 1960) LIKE_COUNT,
+	
+	(SELECT IMG_PATH || IMG_RENAME
+	 FROM "BOARD_IMG"
+	 WHERE BOARD_NO = 1960
+	 AND   IMG_ORDER = 0) THUMBNAIL
+
+FROM "BOARD"
+JOIN "MEMBER" USING(MEMBER_NO)
+WHERE BOARD_DEL_FL = 'N'
+AND BOARD_CODE = 1
+AND BOARD_NO = 1960;
+
+
+SELECT * FROM BOARD
+WHERE  BOARD_NO = 1960 ;
+
+---------------------------------------------
+
+
+/* 상세조회 되는 게시글의 모든 이미지 조회 */
+SELECT *
+FROM "BOARD_IMG"
+WHERE BOARD_NO = 1960
+ORDER BY IMG_ORDER;
+
+
+---------------------------------------------
+
+
+
+
+COMMIT;
+
+
+/* 상세조회 되는 게시글의 모든 댓글 조회 */
+/*계층형 쿼리*/
+SELECT LEVEL, C.* FROM       -->  C.* FROM ~ ▶ 인라인 뷰 : 서브쿼리 이용해서 조회되는 데이터를 하나의 테이블 처럼 사용하는 것
+	(SELECT COMMENT_NO, COMMENT_CONTENT,
+	    TO_CHAR(COMMENT_WRITE_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') COMMENT_WRITE_DATE,
+	    BOARD_NO, MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG, PARENT_COMMENT_NO, COMMENT_DEL_FL
+	FROM "COMMENT"
+	JOIN MEMBER USING(MEMBER_NO)
+	WHERE BOARD_NO = 1960) C
+WHERE COMMENT_DEL_FL = 'N'
+OR 0 != (SELECT COUNT(*) FROM "COMMENT" SUB
+				WHERE SUB.PARENT_COMMENT_NO = C.COMMENT_NO
+				AND COMMENT_DEL_FL = 'N')
+START WITH PARENT_COMMENT_NO IS NULL
+CONNECT BY PRIOR COMMENT_NO = PARENT_COMMENT_NO
+ORDER SIBLINGS BY COMMENT_NO
+;
+
+
+/*
+ 위 내용에 대한 설명..?!
+ 
+--> LEVEL, START WITH  ... 내용이 적혀있으면 게층형 쿼리 
+--> PARENT_COMMENT_NO null로 뜨는데, START WITH PARENT_COMMENT_NO IS NULL 이라는 말은  1레벨에 속하는 것이 Null 이라는 뜻
+
+2레벨
+PARENT_COMMENT_NO 784이라고 적혀있으면 784라는 코멘트 넘버를 가진 것이 부모다 라는 뜻
+이에 대한 내용은 CONNECT BY PRIOR COMMENT_NO = PARENT_COMMENT_NO에 적혀있음.
+
+... 
+
+등 1레벨, 2레벨, 3레벨 등... 계층별로 적혀있는 것을 계층형 쿼리!라고 한다.
+정렬기준은 ORDER SIBLINGS BY COMMENT_NO => 같은 레벨끼리 정렬하는데  COMMENT_NO 의 오름차순으로 정리해둔 것이 위 내용이다.
+
+*/
+
+-->  원래는 STS 서비스단에 mapper를 3번 호출하지만 마이바티스의 기능으로 한번에 3가지를 모두 호출하는 방법을 사용하여 불러올 예정!
+
+
+
+
+
+SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_CODE, READ_COUNT,
+			MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG,
+			TO_CHAR(BOARD_WRITE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') BOARD_WRITE_DATE, 
+			TO_CHAR(BOARD_UPDATE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') BOARD_UPDATE_DATE,
+			(SELECT COUNT(*)
+			 FROM "BOARD_LIKE"
+			 WHERE BOARD_NO = 1960) LIKE_COUNT,
+			(SELECT IMG_PATH || IMG_RENAME
+			 FROM "BOARD_IMG"
+			 WHERE BOARD_NO = 1960
+			 AND   IMG_ORDER = 0) THUMBNAIL
+		FROM "BOARD"
+		JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE BOARD_DEL_FL = 'N'
+		AND BOARD_CODE = 1
+		AND BOARD_NO = 1960
