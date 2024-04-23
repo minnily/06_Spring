@@ -71,7 +71,18 @@
             <!-- image/board.test1.jpg -->
            <th:block th:if="${#lists.size(board.imageList)}>0"> 
 
-                
+                <!-- 썸네일이 있을 경우 -->
+                <th:block th:if="*{thumbnail}"> 
+                    <h5>썸네일</h5>
+                    <div class="img-box">
+                        <div class="boardImg thumbnail">
+                            <img th:src="|${thumbnail.imgPath}${thumbnail.imgRename}|">                     
+                            
+                            <a th:href="|${thumbnail.imgPath}${thumbnail.imgRename}|"
+                             th:download="${thumbnail.imgOriginalName}">다운로드</a>         
+                        </div>
+                    </div>
+                </th:block>
                 
              <!-- 썸네일이 있다면 start=1 이고,  썸네일이 없다면 start=0 이다. -->
                 <th:block th:if="${#lists.size(board.imageList) > start}">
