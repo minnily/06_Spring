@@ -182,6 +182,8 @@ public class BoardController {
 			// board 안에서는 게시글 일반 내용 + imageList +commentList가 들어가 있음
 			model.addAttribute("board",board);
 			
+			log.debug("board :  " + board);
+			
 			// 조회된 이미지 목록(imageList) 가 있을 경우
 			if(!board.getImageList().isEmpty()) {
 				BoardImg thumbnail = null;
@@ -189,11 +191,12 @@ public class BoardController {
 				//imageList의 0번 인덱스 == 가장 빠른 순서(imageOrder)
 				
 				//이미지 목록의 첫번 째 행이 순서 0이라면 썸네일인 경우
-				if(board.getImageList().get(0).getImgNo() == 0) {
+				if(board.getImageList().get(0).getImgOrder() == 0) {
 					
 					thumbnail = board.getImageList().get(0);
 				}
 				
+				log.debug("thumbnail : " + thumbnail);
 				model.addAttribute("thumbnail",thumbnail);
 				model.addAttribute("start",thumbnail != null ? 1:0);
 				
