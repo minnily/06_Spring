@@ -722,3 +722,33 @@ WHERE COMMENT_NO = 2005;
 
 SELECT * FROM "COMMENT"
 WHERE  COMMENT_NO = 2005;
+
+
+
+-----------------------------------------------------------------------------------
+
+SELECT * FROM board_img; --NVARCHAR2(50)
+SELECT  *FROM MEMBER; -- VARCHAR2(300)
+
+SELECT IMG_RENAME "rename"
+FROM BOARD_IMG
+UNION
+SELECT SUBSTR(PROFILE_IMG,INSTR(PROFILE_IMG,'/',-1)+1) "rename"
+FROM MEMBER
+WHERE PROFILE_IMG IS NOT NULL;
+--[72000]: ORA-12704: 문자 집합이 일치하지 않습니다
+
+-- 둘의 타입이 맞지 않아서 UNION이 되지 않았는데 CAST를 사용해서 캐스팅으로 해결하게 되었다(밑내용) , 한쪽으로 타입을 동일하게 맞춰주먼된다.
+------------------------------------->
+SELECT CAST(IMG_RENAME AS VARCHAR2(300)) "rename"
+FROM BOARD_IMG
+UNION
+SELECT SUBSTR(PROFILE_IMG,INSTR(PROFILE_IMG,'/',-1)+1) "rename"
+FROM MEMBER
+WHERE PROFILE_IMG IS NOT NULL;
+
+
+COMMIT;
+
+
+SELECT * FROM "USER";

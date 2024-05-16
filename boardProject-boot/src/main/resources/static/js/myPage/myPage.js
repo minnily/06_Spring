@@ -117,6 +117,33 @@ if(changePw != null){
     });
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //---------------------------------------------------------------------------
 
 /* 탈퇴 유효성 검사 */
@@ -327,6 +354,73 @@ if(profile != null){
 */
 
 
+const checkSignout ={
+  "agreeSignout" : false,
+  "currentPwConfirm" :false
+};
+
+const currentPwConfirm = document.querySelector("#currentPwConfirm");
+const agreeSignout = document.querySelector("#agreeSignout");
+const currentPwConfirmMessage = document.querySelector("#currentPwConfirmMessage");  
+const signoutBtn = document.querySelector("#signoutBtn");
+
+const signoutForm= document.querySelector("#signoutForm");
 
 
+// 비밀번호 입력 시 이벤트
+currentPwConfirm.addEventListener("input",()=>{
+  if(currentPwConfirm.value.trim().length == 0){
+     currentPwConfirmMessage.innerText="비밀번호를 입력해주세요"
+      checkSignout.currentPwConfirm = false;
+      return;
+    }
+    
+  const inputPw = currentPwConfirm.value;
+  fetch("/user/checkPw", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: inputPw
+  })
+  .then(resp => resp.text())
+  .then(result => {
+    if(result == 0){
+      
+      currentPwConfirmMessage.innerText= '비밀번호 불일치';
+      checkSignout.currentPwConfirm = false;
+      return; 
+    } 
+    currentPwConfirmMessage.innerText="비밀번호 일치"
+    checkSignout.currentPwConfirm = true;
+    
+  }) 
+});
 
+// 동의체크박스
+agreeSignout.addEventListener("change", (e) => {
+  console.log(e.target.checked);
+  if(e.target.checked) checkSignout.agreeSignout = true;
+  else      checkSignout.agreeSignout = false;
+})
+
+// 최종 서브밋 될 떄 이벤트
+signoutForm.addEventListener("submit", (e) => {
+
+  if(!checkSignout.agreeSignout){
+    e.preventDefault();
+    alert('탈퇴 약관에 동의해주세요');
+    return;
+
+  }
+
+  if(!checkSignout.currentPwConfirm) {
+    e.preventDefault();
+    alert('비밀번호가 일치하지 않습니다');
+    return;
+  }
+
+  alert("탈퇴 되었습니다!");
+  return true;
+  
+})
