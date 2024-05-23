@@ -77,7 +77,7 @@
           <tags>persp.editorOnboardingCommand:Show Key Assist$$$Ctrl+Shift+L</tags>
           <tags>persp.editorOnboardingCommand:New$$$Ctrl+N</tags>
           <tags>persp.editorOnboardingCommand:Open Type$$$Ctrl+Shift+T</tags>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_sXsoxQeIEe-IdKCD_zB0lg" selectedElement="_sXso0QeIEe-IdKCD_zB0lg" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_sXsoxQeIEe-IdKCD_zB0lg" selectedElement="_sXsoxgeIEe-IdKCD_zB0lg" horizontal="true">
             <children xsi:type="basic:PartSashContainer" xmi:id="_sXsoxgeIEe-IdKCD_zB0lg" containerData="2777" selectedElement="_sXsoxweIEe-IdKCD_zB0lg">
               <children xsi:type="basic:PartSashContainer" xmi:id="_sXsoxweIEe-IdKCD_zB0lg" containerData="6000" selectedElement="_sXsoyAeIEe-IdKCD_zB0lg">
                 <children xsi:type="basic:PartStack" xmi:id="_sXsoyAeIEe-IdKCD_zB0lg" elementId="left" containerData="6600" selectedElement="_sXsoyQeIEe-IdKCD_zB0lg">
@@ -252,7 +252,7 @@
               <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
             </children>
             <children xsi:type="basic:Part" xmi:id="_i5Y1IBf4Ee-wC6n9PEmKsQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="FilterConfig.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-              <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;FilterConfig.java&quot; partName=&quot;FilterConfig.java&quot; title=&quot;FilterConfig.java&quot; tooltip=&quot;boardProject-boot/src/main/java/edu/kh/project/common/config/FilterConfig.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/boardProject-boot/src/main/java/edu/kh/project/common/config/FilterConfig.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;869&quot; selectionTopPixel=&quot;64&quot;/>&#xD;&#xA;&lt;/editor>"/>
+              <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;FilterConfig.java&quot; partName=&quot;FilterConfig.java&quot; title=&quot;FilterConfig.java&quot; tooltip=&quot;boardProject-boot/src/main/java/edu/kh/project/common/config/FilterConfig.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/boardProject-boot/src/main/java/edu/kh/project/common/config/FilterConfig.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;869&quot; selectionTopPixel=&quot;13&quot;/>&#xD;&#xA;&lt;/editor>"/>
               <tags>Editor</tags>
               <tags>removeOnHide</tags>
               <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
@@ -472,7 +472,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sXtRKweIEe-IdKCD_zB0lg" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_ZmMsABcHEe-wC6n9PEmKsQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_sXvFwgeIEe-IdKCD_zB0lg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_5fi0UBiVEe-kCu19GC35qw" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_sXvFwgeIEe-IdKCD_zB0lg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sXtROAeIEe-IdKCD_zB0lg" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -480,8 +480,8 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sXtROgeIEe-IdKCD_zB0lg" elementId="org.eclipse.ui.workbench.edit">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_ZmN6IRcHEe-wC6n9PEmKsQ" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.png" tooltip="Undo" enabled="false" command="_sXugkweIEe-IdKCD_zB0lg"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_ZmN6IhcHEe-wC6n9PEmKsQ" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.png" tooltip="Redo" enabled="false" command="_sXuhBweIEe-IdKCD_zB0lg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_5fkCcRiVEe-kCu19GC35qw" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.png" tooltip="Undo" enabled="false" command="_sXugkweIEe-IdKCD_zB0lg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_5fkpgBiVEe-kCu19GC35qw" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.png" tooltip="Redo" enabled="false" command="_sXuhBweIEe-IdKCD_zB0lg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sXtRPgeIEe-IdKCD_zB0lg" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -505,7 +505,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sXtRgAeIEe-IdKCD_zB0lg" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_ZmOhNBcHEe-wC6n9PEmKsQ" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_sXvFfQeIEe-IdKCD_zB0lg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_5fkphhiVEe-kCu19GC35qw" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_sXvFfQeIEe-IdKCD_zB0lg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_sXtRjQeIEe-IdKCD_zB0lg" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
